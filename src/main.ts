@@ -39,8 +39,6 @@ function drawNewLine(event?: SubmitEvent) {
     lines[currentLineIndex].resetLine()
     
     currentLineIndex = lines.indexOf(lines.find(x => x.name === equation))
-    
-    console.log(currentLineIndex)
 
     lines[currentLineIndex].numberOfPoints = numberOfPoints
 
