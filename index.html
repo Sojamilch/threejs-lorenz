@@ -22,13 +22,20 @@
     <div class="offcanvas offcanvas-start" id="sideBar" tabindex="-1">
       <div class="offcanvas-header">
         <h1>Select Parameters</h1>
+        <button
+          class="btn btn-danger"
+          type="button"
+          data-bs-dismiss="offcanvas"
+        >
+          X
+        </button>
       </div>
       <div class="offcanvas-body">
         <form id="drawingConfigForm">
           <div class="mb-3 row">
-            <select class="form-select">
-              <option value="1" selected>Lorenz System</option>
-              <option value="2">Lorenz System</option>
+            <select class="form-select" name="equation">
+              <option value="lorenz" selected>Lorenz System</option>
+              <option value="lorenz2">lorenz2</option>
               <option value="3">Lorenz System</option>
             </select>
           </div>
@@ -42,7 +49,8 @@
               id="numberOfPoints"
               min="1000"
               max="10000"
-              step="100"
+              step="1000"
+              name="numberOfPoints"
             />
           </div>
           <button class="btn btn-danger" type="submit">Re-Draw</button>

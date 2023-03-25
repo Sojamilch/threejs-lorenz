@@ -2,8 +2,8 @@ import * as THREE from 'three'
 
 interface ICurve {
 
-    curvePoints: Array<THREE.Vector3>
-    createLine: (curvePoints: Array<THREE.Vector3>) => THREE.Line
+    _line: THREE.Line 
+    drawCount: number
     drawLine: () => void
 
 }
@@ -13,38 +13,33 @@ interface ICurve {
  */
 export class CurveDrawer implements ICurve {
 
-    curvePoints: Array<THREE.Vector3>
-    line: THREE.Line
+    _line: THREE.Line 
     drawCount: number
     
     //curvePoints: Array<THREE.Vector3>
 
-    constructor(curvePoints: Array<THREE.Vector3>){
-        this.curvePoints = curvePoints
-        this.line = this.createLine(this.curvePoints)
+    constructor(line: THREE.Line){
         this.drawCount = 0
-
-    }
-
-    createLine(curvePoints: Array<THREE.Vector3>): THREE.Line{
-        const drawCount = 0
-        const geometry = new THREE.BufferGeometry().setFromPoints(curvePoints)
-
-        geometry.setDrawRange(0,drawCount)
-
-        const material = new THREE.LineBasicMaterial( { color: 0x0000ff })
-        const line = new THREE.Line(geometry,material)
-
-        return line
-
+        this._line = line
     }
 
     drawLine() {
         this.drawCount = (this.drawCount + 5) 
-        this.line.geometry.setDrawRange(0,this.drawCount)
+        this._line.geometry.setDrawRange(0,this.drawCount)
+
     }
     
+    set line(line: THREE.Line) {
+        
+        this._line = line
+        this._line.geometry.setDrawRange(0,0)
+        this.drawCount = 0
 
+    }
+
+    get line() {
+        return this._line
+    }
     
 
 }
