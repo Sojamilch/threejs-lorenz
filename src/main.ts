@@ -13,6 +13,10 @@ const curveDrawer = new CurveDrawer(new LorenzSystem(10000).curvePoints)
 
 mainScreen.scene.add(curveDrawer.line)
 
+const drawingConfigForm = document.getElementById("drawingConfigForm")
+
+
+
 //window resize
 window.addEventListener("resize", () => {
 
@@ -33,7 +37,6 @@ const animate = () => {
     mainScreen.controls.update()
     mainScreen.renderer.render(mainScreen.scene,mainScreen.camera)
 }
-
 
 //Run animation on delta time to keep consistent framerate across devices
 const clock = new THREE.Clock()
