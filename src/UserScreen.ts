@@ -62,7 +62,7 @@ export class UserScreen implements IScreen {
     }
 
     createCamera(fov: number,aspectRatio: number): THREE.PerspectiveCamera {
-        const camera = new THREE.PerspectiveCamera(fov,aspectRatio)
+        const camera = new THREE.PerspectiveCamera(fov,aspectRatio,0.1,4000)
         camera.position.set(1000,0,1000)
         camera.lookAt(0,0,0)
         return camera
