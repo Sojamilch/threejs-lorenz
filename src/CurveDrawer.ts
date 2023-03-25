@@ -40,7 +40,7 @@ export class CurveDrawer implements ICurve {
     }
 
     drawLine() {
-        this.drawCount = this.drawCount + 5
+        this.drawCount = (this.drawCount + 5) 
         this.line.geometry.setDrawRange(0,this.drawCount)
     }
     
