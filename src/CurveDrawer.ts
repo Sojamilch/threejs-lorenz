@@ -15,8 +15,6 @@ export class CurveDrawer implements ICurve {
 
     _line: THREE.Line 
     drawCount: number
-    
-    //curvePoints: Array<THREE.Vector3>
 
     constructor(line: THREE.Line){
         this.drawCount = 0
