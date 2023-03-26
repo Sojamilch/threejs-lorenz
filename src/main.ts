@@ -2,19 +2,23 @@
 
 import {UserScreen} from './UserScreen'
 import { CurveDrawer } from './CurveDrawer'
-import { LorenzSystem } from './LorenzSystem'
+import { Lorenz } from './Lorenz'
 import * as THREE from 'three'
 import "./style.css"
+import { Rossler } from './Rossler'
 //Create Scene
 
 const mainScreen = new UserScreen("webgl")
-const lorenzSystem = new LorenzSystem(10000,"lorenz") 
+//10000 = maximum number of points
+const lorenz = new Lorenz(10000) 
+const rossler = new Rossler(10000)
 const curveDrawer = new CurveDrawer(new THREE.Line())
 
 let currentLineIndex = 0
 
 const lines: Array<any> = []
-lines.push(lorenzSystem)
+lines.push(lorenz)
+lines.push(rossler)
 
 
 const drawingConfigForm = document.getElementById("drawingConfigForm") as HTMLFormElement
@@ -25,6 +29,7 @@ function drawNewLine(event?: SubmitEvent) {
 
     let numberOfPoints, equation: FormDataEntryValue | null | string
 
+    //default data
     equation = "lorenz"
     numberOfPoints = 5000
 
@@ -72,7 +77,7 @@ const animate = () => {
 //Run animation on delta time to keep consistent framerate across devices
 const clock = new THREE.Clock()
 let delta = 0
-let interval = 1 / 30
+let interval = 1 / 60
 
 const update = () => {
 
