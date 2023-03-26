@@ -50,7 +50,7 @@ export class Rossler extends AttractorSystem implements IRossler {
         
 
         for (var i=0;i<numberOfPoints;i++){
-            //lorenz
+            //rossler
             let dt = 0.1;
             let dx = (-y -z) *dt
             let dy = (x + (a*y)) *dt
@@ -58,17 +58,6 @@ export class Rossler extends AttractorSystem implements IRossler {
             x = x + dx;
             y = y + dy;
             z = z + dz;
-            
-            // //rossler
-            // let dt = 0.1
-            // let dx = (-y-z) * dt
-            // let dy = (x + (a*y)) * dt
-            // let dz = (b +z*(x -c) ) * dt
-
-            // x =(x + dx)
-            // y =(y + dy)
-            // z =(z + dz)
-
 
 
             let vertex = new THREE.Vector3(
@@ -77,7 +66,6 @@ export class Rossler extends AttractorSystem implements IRossler {
                 z*50);
                 
             points.push(vertex)
-            console.log(+2)
 
         }
     
