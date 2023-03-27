@@ -1,4 +1,4 @@
-import { AttractorSystem, IAttractorSystem } from "./AttractorSystem";
+import { AttractorSystem, IAttractorSystem } from "../AttractorSystem";
 import * as THREE from 'three'
 
 
@@ -41,13 +41,7 @@ export class Rossler extends AttractorSystem implements IRossler {
         let b = 2;
         let c = 4
 
-        //  let a = 0.2
-        //  let b = 0.2
-        //  let c = 5.7
-
-
-        const points: Array<THREE.Vector3> = []
-        
+        const POINTS: Array<THREE.Vector3> = []
 
         for (var i=0;i<numberOfPoints;i++){
             //rossler
@@ -65,11 +59,11 @@ export class Rossler extends AttractorSystem implements IRossler {
                 y*50, 
                 z*50);
                 
-            points.push(vertex)
+            POINTS.push(vertex)
 
         }
     
 
-        return points
+        return POINTS
     }
 }

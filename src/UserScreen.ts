@@ -52,27 +52,27 @@ export class UserScreen implements IScreen {
 
     setupScene(camera: THREE.PerspectiveCamera, scene:THREE.Scene, screenSize: IScreenSize, canvas: HTMLCanvasElement): THREE.WebGLRenderer {
         scene.add(camera)
-        const renderer = new THREE.WebGLRenderer({ canvas })
-        renderer.setSize(screenSize.width, screenSize.height)
-        renderer.setPixelRatio(1)
-        renderer.render(scene,camera)
+        const REDNERER = new THREE.WebGLRenderer({ canvas })
+        REDNERER.setSize(screenSize.width, screenSize.height)
+        REDNERER.setPixelRatio(1)
+        REDNERER.render(scene,camera)
 
-        return renderer
+        return REDNERER
         
     }
 
     createCamera(fov: number,aspectRatio: number): THREE.PerspectiveCamera {
-        const camera = new THREE.PerspectiveCamera(fov,aspectRatio,0.1,4000)
-        camera.position.set(1000,0,1000)
-        camera.lookAt(0,0,0)
-        return camera
+        const CAMERA = new THREE.PerspectiveCamera(fov,aspectRatio,0.1,4000)
+        CAMERA.position.set(1000,0,1000)
+        CAMERA.lookAt(0,0,0)
+        return CAMERA
     }
 
     createControls(camera: THREE.PerspectiveCamera, canvas: HTMLCanvasElement): OrbitControls{
-        const controls = new OrbitControls(camera, canvas)
-        controls.enableDamping = true
-        controls.target = new THREE.Vector3(0,0,250)
-        return controls
+        const CONTROLS = new OrbitControls(camera, canvas)
+        CONTROLS.enableDamping = true
+        CONTROLS.target = new THREE.Vector3(0,0,250)
+        return CONTROLS
     }
 
 }

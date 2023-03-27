@@ -1,6 +1,6 @@
 
 import * as THREE from 'three'
-import { AttractorSystem, IAttractorSystem } from './AttractorSystem'
+import { AttractorSystem, IAttractorSystem } from '../AttractorSystem'
 
 interface ILorenz extends IAttractorSystem{
     name: string
@@ -9,6 +9,7 @@ interface ILorenz extends IAttractorSystem{
 
     
 }
+
 
 export class Lorenz extends AttractorSystem implements ILorenz {
     name: string
@@ -32,8 +33,6 @@ export class Lorenz extends AttractorSystem implements ILorenz {
         super.updateLine()
     }
 
-
-
     calculateCurvePoints(numberOfPoints: number): Array<THREE.Vector3>{
         let x = 0.01;
         let y = 0;
@@ -44,7 +43,7 @@ export class Lorenz extends AttractorSystem implements ILorenz {
         let c = 8.0 / 3.0;
 
 
-        const points: Array<THREE.Vector3> = []
+        const POINTS: Array<THREE.Vector3> = []
         
 
         for (var i=0;i<numberOfPoints;i++){
@@ -64,12 +63,12 @@ export class Lorenz extends AttractorSystem implements ILorenz {
                 y*10, 
                 z*10);
                 
-            points.push(vertex)
+            POINTS.push(vertex)
 
         }
     
 
-        return points
+        return POINTS
     }
 
 

@@ -14,22 +14,24 @@ export interface IAttractorSystem {
 export class AttractorSystem implements AttractorSystem {
     curvePoints: Array<THREE.Vector3>
     _line: THREE.Line
+    catmullRomCurve: THREE.CatmullRomCurve3
 
     constructor(){
         this.curvePoints = []
+        this.catmullRomCurve = new THREE.CatmullRomCurve3(this.curvePoints)
         this._line = this.createLine(this.curvePoints)
     }
 
     createLine(curvePoints: Array<THREE.Vector3>){
 
-        const geometry = new THREE.BufferGeometry().setFromPoints(curvePoints)
+        const GEOMETRY = new THREE.BufferGeometry().setFromPoints(curvePoints)
 
-        geometry.setDrawRange(0,0)
+        GEOMETRY.setDrawRange(0,0)
 
-        const material = new THREE.LineBasicMaterial( { color: 0x0000ff })
-        const line = new THREE.Line(geometry,material)
+        const MATERIAL = new THREE.LineBasicMaterial( { color: 0x0000ff })
+        const LINE = new THREE.Line(GEOMETRY,MATERIAL)
         
-        return line
+        return LINE
     }
 
     updateLine(){

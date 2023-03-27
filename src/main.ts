@@ -2,28 +2,29 @@
 
 import {UserScreen} from './UserScreen'
 import { CurveDrawer } from './CurveDrawer'
-import { Lorenz } from './Lorenz'
+import { Lorenz } from './Attractors/Lorenz'
 import * as THREE from 'three'
 import "./style.css"
-import { Rossler } from './Rossler'
+import { Rossler } from './Attractors/Rossler'
 //Create Scene
 
-const mainScreen = new UserScreen("webgl")
+const MAIN_SCREEN = new UserScreen("webgl")
+
 //10000 = maximum number of points
-const lorenz = new Lorenz(10000) 
-const rossler = new Rossler(10000)
-const curveDrawer = new CurveDrawer(new THREE.Line())
+const LORENZ = new Lorenz(10000) 
+const ROSSLER = new Rossler(10000)
+const CURVE_DRAWER = new CurveDrawer(new THREE.Line)
 
 let currentLineIndex = 0
 
-const lines: Array<any> = []
-lines.push(lorenz)
-lines.push(rossler)
+const LINES: Array<any> = []
+LINES.push(LORENZ)
+LINES.push(ROSSLER)
 
 
-const drawingConfigForm = document.getElementById("drawingConfigForm") as HTMLFormElement
+const DRAWING_CONFIG_FORM = document.getElementById("drawingConfigForm") as HTMLFormElement
 
-drawingConfigForm?.addEventListener("submit",drawNewLine)
+DRAWING_CONFIG_FORM?.addEventListener("submit",drawNewLine)
 
 function drawNewLine(event?: SubmitEvent) {
 
@@ -35,54 +36,51 @@ function drawNewLine(event?: SubmitEvent) {
 
     if(event !== undefined){
         event.preventDefault()
-        const formData = new FormData(drawingConfigForm)
-        equation = formData.get("equation")
-        numberOfPoints = formData.get("numberOfPoints")
+        const FORM_DATA = new FormData(DRAWING_CONFIG_FORM)
+        equation = FORM_DATA.get("equation")
+        numberOfPoints = FORM_DATA.get("numberOfPoints")
     }
 
-
-    lines[currentLineIndex].resetLine()
+    LINES[currentLineIndex].resetLine()
     
-    currentLineIndex = lines.indexOf(lines.find(x => x.name === equation))
+    currentLineIndex = LINES.indexOf(LINES.find(x => x.name === equation))
 
-    lines[currentLineIndex].numberOfPoints = numberOfPoints
+    LINES[currentLineIndex].numberOfPoints = numberOfPoints
 
-    lines[currentLineIndex].resetLine()
-    curveDrawer.line = lines[currentLineIndex].line
+    LINES[currentLineIndex].resetLine()
+    CURVE_DRAWER.line = LINES[currentLineIndex].line
 
-    mainScreen.scene.add(curveDrawer.line)
+    MAIN_SCREEN.scene.add(CURVE_DRAWER.line)
 }
 
 //window resize
 window.addEventListener("resize", () => {
 
-    mainScreen.screenSize.width = window.innerWidth
-    mainScreen.screenSize.height = window.innerHeight
+    MAIN_SCREEN.screenSize.width = window.innerWidth
+    MAIN_SCREEN.screenSize.height = window.innerHeight
 
-    const cameraAspect = mainScreen.screenSize.width / mainScreen.screenSize.height
+    const cameraAspect = MAIN_SCREEN.screenSize.width / MAIN_SCREEN.screenSize.height
 
-    mainScreen.camera.aspect = cameraAspect
-    mainScreen.camera.updateProjectionMatrix()
-    mainScreen.renderer.setSize(mainScreen.screenSize.width, mainScreen.screenSize.height)
+    MAIN_SCREEN.camera.aspect = cameraAspect
+    MAIN_SCREEN.camera.updateProjectionMatrix()
+    MAIN_SCREEN.renderer.setSize(MAIN_SCREEN.screenSize.width, MAIN_SCREEN.screenSize.height)
 })
 
-
-
 const animate = () => {
-    curveDrawer.drawLine()
-    mainScreen.controls.update()
-    mainScreen.renderer.render(mainScreen.scene,mainScreen.camera)
+    CURVE_DRAWER.drawLine()
+    MAIN_SCREEN.controls.update()
+    MAIN_SCREEN.renderer.render(MAIN_SCREEN.scene,MAIN_SCREEN.camera)
 }
 
 //Run animation on delta time to keep consistent framerate across devices
-const clock = new THREE.Clock()
+const CLOCK = new THREE.Clock()
 let delta = 0
 let interval = 1 / 60
 
 const update = () => {
 
     window.requestAnimationFrame(update)
-    delta += clock.getDelta()
+    delta += CLOCK.getDelta()
 
     if(delta > interval){
         animate()
@@ -92,4 +90,5 @@ const update = () => {
 }
 
 drawNewLine()
+
 update()
