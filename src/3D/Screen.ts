@@ -46,6 +46,7 @@ interface IScreen {
     light: THREE.DirectionalLight
     controls: OrbitControls
     renderer: THREE.WebGLRenderer
+    parent: THREE.Object3D
 }
 
 export class Screen implements IScreen {
@@ -56,6 +57,7 @@ export class Screen implements IScreen {
     light: THREE.DirectionalLight
     controls: OrbitControls
     renderer: THREE.WebGLRenderer
+    parent: THREE.Object3D
 
     constructor(params: TInitParams){
 
@@ -65,6 +67,7 @@ export class Screen implements IScreen {
         this.light = this._createLight()
         this.controls = this._createControls()
         this.renderer = this._createRenderer()
+        this.parent = new THREE.Object3D()
         this._init()
     }
 
@@ -80,7 +83,7 @@ export class Screen implements IScreen {
     private _createCamera(): THREE.PerspectiveCamera {
 
         const CAMERA_PARAMS = this.params.camera
-        const camera = new THREE.PerspectiveCamera(CAMERA_PARAMS.fov, CAMERA_PARAMS.aspectRatio, CAMERA_PARAMS.farPlane, CAMERA_PARAMS.nearPlane)
+        const camera = new THREE.PerspectiveCamera(CAMERA_PARAMS.fov, CAMERA_PARAMS.aspectRatio, CAMERA_PARAMS.nearPlane, CAMERA_PARAMS.farPlane)
         camera.position.set(0,50,500)
         return camera
     }
@@ -100,7 +103,7 @@ export class Screen implements IScreen {
         const REDNERER_PARAMS = this.params.renderer
         const canvas = REDNERER_PARAMS.canvasElement
 
-        const REDNERER = new THREE.WebGLRenderer({ canvas, antialias:true })
+        const REDNERER = new THREE.WebGLRenderer({ canvas,  antialias: true })
         REDNERER.setSize(REDNERER_PARAMS.width, REDNERER_PARAMS.height)
         REDNERER.setPixelRatio(REDNERER_PARAMS.pixelRatio)
 
@@ -108,8 +111,11 @@ export class Screen implements IScreen {
     }
 
     private _init() {   
+        
+        this.scene.background = new THREE.Color(0xf0f0f0)
         this.scene.add(this.camera)
         this.scene.add(this.light)
+        this.scene.add(this.parent)
         this.renderer.render(this.scene,this.camera)
 
     }

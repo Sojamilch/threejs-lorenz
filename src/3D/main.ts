@@ -1,6 +1,7 @@
 
 import * as THREE from 'three'
 import { Screen } from "./Screen";
+import { Spline } from "./Spline"
 
 const CANVAS_ELEMENT = document.getElementById("webgl") as HTMLCanvasElement
 const INIT_PARAMS = {
@@ -25,7 +26,53 @@ const INIT_PARAMS = {
     }
 }
 
+
+function lorenz(numberOfPoints: number): THREE.CatmullRomCurve3{
+
+    let x = 0.01;
+    let y = 0;
+    let z = 0;
+
+    let a = 15;
+    let b = 28;
+    let c = 8.0 / 3.0;
+
+
+    const points: Array<THREE.Vector3> = []
+    
+
+    for (var i=0;i<numberOfPoints;i++){
+        //lorenz
+        let dt = 0.01;
+        let dx = (a * (y - x)) * dt;
+        let dy = (x * (b - z) - y) * dt;
+        let dz = (x * y - c * z) * dt;
+        x = x + dx;
+        y = y + dy;
+        z = z + dz;
+        
+
+
+        let vertex = new THREE.Vector3(
+            x*10, 
+            y*10, 
+            z*10);
+            
+        points.push(vertex)
+
+    }
+
+    const spline = new THREE.CatmullRomCurve3(points)
+    return spline
+}
+
+
+
+
 const SCREEN = new Screen(INIT_PARAMS)
+const SPLINE = new Spline(lorenz(5000))
+
+SCREEN.parent.add(SPLINE.mesh)
 
 window.addEventListener("resize", () => {
     SCREEN.onWindowResize()
@@ -38,7 +85,7 @@ const animate = () => {
 //Run animation on delta time to keep consistent framerate across devices
 const CLOCK = new THREE.Clock()
 let delta = 0
-let interval = 1 / 60
+let interval = 1 / 45
 
 const update = () => {
 
@@ -51,3 +98,5 @@ const update = () => {
     }
 
 }
+
+update()
