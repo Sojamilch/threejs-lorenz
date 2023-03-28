@@ -8,12 +8,30 @@ import "./style.css"
 import { Rossler } from './Attractors/Rossler'
 //Create Scene
 
-const MAIN_SCREEN = new UserScreen("webgl")
+const CANVAS_ELEMENT = document.getElementById("webgl2") as HTMLCanvasElement
+const CANVAS_ELEMENT2 = document.getElementById("webgl") as HTMLCanvasElement
+const MAIN_SCREEN = new UserScreen(CANVAS_ELEMENT)
 
 //10000 = maximum number of points
 const LORENZ = new Lorenz(10000) 
 const ROSSLER = new Rossler(10000)
 const CURVE_DRAWER = new CurveDrawer(new THREE.Line)
+
+
+
+const switchButton = document.getElementById("switch")
+
+switchButton?.addEventListener("click", (event) => {
+    event.preventDefault()
+    if(CANVAS_ELEMENT2.style.display === "block"){
+        MAIN_SCREEN.canvas.style.display = "none"
+        CANVAS_ELEMENT2.style.display = "block"
+    }else if(MAIN_SCREEN.canvas.style.display === "none"){
+        MAIN_SCREEN.canvas.style.display = "block"
+        CANVAS_ELEMENT2.style.display = "none"
+    }
+    
+})
 
 let currentLineIndex = 0
 

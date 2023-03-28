@@ -4,6 +4,7 @@ import { Screen } from "./Screen";
 import { Spline } from "./Spline"
 
 const CANVAS_ELEMENT = document.getElementById("webgl") as HTMLCanvasElement
+//CANVAS_ELEMENT.style.display = "none"
 const INIT_PARAMS = {
     camera: {
         fov: 50,

@@ -35,14 +35,14 @@ export class UserScreen implements IScreen {
     renderer: THREE.WebGLRenderer
 
 
-    constructor(canvasID: string){
+    constructor(canvas: HTMLCanvasElement){
         this.scene = new THREE.Scene()
         this.screenSize = {
             width: window.innerWidth,
             height: window.innerHeight
         } as IScreenSize
         this.camera = this.createCamera(45,this.screenSize.width/this.screenSize.height)
-        this.canvas = document.getElementById(canvasID) as HTMLCanvasElement
+        this.canvas = canvas
         this.controls = this.createControls(this.camera, this.canvas)
 
         this.renderer = this.setupScene(this.camera,this.scene,this.screenSize,this.canvas)
