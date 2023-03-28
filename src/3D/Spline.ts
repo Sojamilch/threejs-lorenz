@@ -33,7 +33,7 @@ export class Spline implements ISpline {
 
     private _createTube() {
         const extrudePath = this.spline
-        const tubeGeometry = new THREE.TubeGeometry(extrudePath,1000,2,30,false )
+        const tubeGeometry = new THREE.TubeGeometry(extrudePath,10000,2,30,false )
         return tubeGeometry
     }
 

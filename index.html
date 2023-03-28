@@ -18,57 +18,9 @@
       crossorigin="anonymous"
     ></script>
   </head>
-  <body>
-    <div class="offcanvas offcanvas-start" id="sideBar" tabindex="-1">
-      <div class="offcanvas-header">
-        <h1>Select Parameters</h1>
-        <button
-          class="btn btn-danger"
-          type="button"
-          data-bs-dismiss="offcanvas"
-        >
-          X
-        </button>
-      </div>
-      <div class="offcanvas-body">
-        <form id="drawingConfigForm">
-          <div class="mb-3 row">
-            <select class="form-select" name="equation">
-              <option value="lorenz" selected>Lorenz System</option>
-              <option value="rossler">Rossler System</option>
-            </select>
-          </div>
-          <div class="mb-3 row">
-            <label for="numberOfPoints" class="form-label"
-              >Number of Points</label
-            >
-            <input
-              type="range"
-              class="form-range"
-              id="numberOfPoints"
-              min="1000"
-              max="10000"
-              step="1000"
-              name="numberOfPoints"
-            />
-          </div>
-          <button class="btn btn-danger" type="submit">Re-Draw</button>
-        </form>
-      </div>
-    </div>
-    <div class="position-relative">
+  <body></body>
+    
       <canvas id="webgl"></canvas>
-
-      <button
-        class="btn btn-primary position-absolute top-50 start-0"
-        type="button"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#sideBar"
-      >
-        >
-      </button>
-    </div>
-
     <script type="module" src="/src/3D/main.ts"></script>
   </body>
 </html>
