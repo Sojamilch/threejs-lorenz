@@ -132,6 +132,8 @@ export class Screen implements IScreen {
 
     render() {
         this.renderer.render(this.scene, this.camera)
+        this.controls.update()
+        
     }
 
 }

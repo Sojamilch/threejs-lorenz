@@ -70,19 +70,21 @@ let swapValue = true
 function swap() {
     
     if(swapValue == true){
-        SCREEN.parent.remove(SPLINE.line3D)
-        SCREEN.parent.add(SPLINE.line2D)
+        SCREEN.parent.remove(SPLINE.line3D.mesh)
+        SCREEN.parent.add(SPLINE.line2D.line)
+        SPLINE.line2D.resetLine()
         swapValue = false
 
     }else{
-        SCREEN.parent.add(SPLINE.line3D)
-        SCREEN.parent.remove(SPLINE.line2D)
+        SCREEN.parent.add(SPLINE.line3D.mesh)
+        SCREEN.parent.remove(SPLINE.line2D.line)
+        SPLINE.line3D.resetLine()
         swapValue = true
     }
 
 }
-const switchButton = document.getElementById("switch")
 
+const switchButton = document.getElementById("switch")
 switchButton?.addEventListener("click", swap)
 
 const lorenzCurve = new THREE.CatmullRomCurve3(lorenz(5000))
@@ -90,7 +92,7 @@ const lorenzCurve = new THREE.CatmullRomCurve3(lorenz(5000))
 const SCREEN = new Screen(INIT_PARAMS)
 const SPLINE = new Spline(lorenzCurve)
 
-SCREEN.parent.add(SPLINE.line3D)
+SCREEN.parent.add(SPLINE.line3D.mesh)
 
 window.addEventListener("resize", () => {
     SCREEN.onWindowResize()
@@ -98,6 +100,8 @@ window.addEventListener("resize", () => {
 
 const animate = () => {
     SCREEN.render()
+    SPLINE.line2D.drawLine()
+    SPLINE.line3D.drawLine()
 }
 
 //Run animation on delta time to keep consistent framerate across devices

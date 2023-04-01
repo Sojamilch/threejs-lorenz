@@ -1,61 +1,28 @@
 import * as THREE from 'three'
+import { Line2D } from './Line2D'
+import { Line3D } from './Line3D'
 
 interface ISpline {
-    spline: THREE.CatmullRomCurve3
-    _material: THREE.MeshLambertMaterial
-    _tubeGeometry: THREE.TubeGeometry 
-    _mesh: THREE.Mesh 
-    _line: THREE.Line
+    _line3D: Line3D
+    _line2D: Line2D
 }
 
 export class Spline implements ISpline {
 
-    spline: THREE.CatmullRomCurve3
-    _material: THREE.MeshLambertMaterial
-    _tubeGeometry: THREE.TubeGeometry 
-    _mesh: THREE.Mesh 
-    _line: THREE.Line
+    _line3D: Line3D
+    _line2D: Line2D
 
     constructor(spline: THREE.CatmullRomCurve3){
-        this.spline = spline
-        this._material = this._createMaterial()
-        this._tubeGeometry = this._createTube()
-        this._mesh = this._createMesh(this._tubeGeometry)
-        this._line = this._createLine()
+        this._line3D = new Line3D(spline)
+        this._line2D = new Line2D(spline)
     }
 
     get line3D() {
-        return this._mesh
+        return this._line3D
     }
 
     get line2D() {
-        return this._line
-    }
-
-    private _createLine(): THREE.Line{
-        const points = this.spline.getPoints(10000)
-        const geometry = new THREE.BufferGeometry().setFromPoints(points)
-        const material = new THREE.LineBasicMaterial( { color: 0xff0000 })
-        const line = new THREE.Line(geometry,material)
-
-        return line
-    }
-    private _createMaterial(): THREE.MeshLambertMaterial{
-        const material = new THREE.MeshLambertMaterial({color: 0xff00ff})
-
-        return material 
-    }
-
-    private _createTube() {
-        const extrudePath = this.spline
-        const tubeGeometry = new THREE.TubeGeometry(extrudePath,10000,2,30,false )
-        return tubeGeometry
-    }
-
-    private _createMesh(geometry: THREE.TubeGeometry){
-        const mesh = new THREE.Mesh(geometry,this._material)
-        //mesh.scale.set(4,4,4)
-        return mesh
+        return this._line2D
     }
 
 }
