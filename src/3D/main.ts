@@ -1,4 +1,3 @@
-
 import * as THREE from 'three'
 import { Screen } from "./Screen";
 import { Spline } from "./Spline"
@@ -28,7 +27,7 @@ const INIT_PARAMS = {
 }
 
 
-function lorenz(numberOfPoints: number): THREE.CatmullRomCurve3{
+function lorenz(numberOfPoints: number): Array<THREE.Vector3>{
 
     let x = 0.01;
     let y = 0;
@@ -63,17 +62,35 @@ function lorenz(numberOfPoints: number): THREE.CatmullRomCurve3{
 
     }
 
-    const spline = new THREE.CatmullRomCurve3(points)
-    return spline
+    //const spline = new THREE.CatmullRomCurve3(points)
+    return points
 }
 
+let swapValue = true
+function swap() {
+    
+    if(swapValue == true){
+        SCREEN.parent.remove(SPLINE.line3D)
+        SCREEN.parent.add(SPLINE.line2D)
+        swapValue = false
 
+    }else{
+        SCREEN.parent.add(SPLINE.line3D)
+        SCREEN.parent.remove(SPLINE.line2D)
+        swapValue = true
+    }
 
+}
+const switchButton = document.getElementById("switch")
+
+switchButton?.addEventListener("click", swap)
+
+const lorenzCurve = new THREE.CatmullRomCurve3(lorenz(5000))
 
 const SCREEN = new Screen(INIT_PARAMS)
-const SPLINE = new Spline(lorenz(5000))
+const SPLINE = new Spline(lorenzCurve)
 
-SCREEN.parent.add(SPLINE.mesh)
+SCREEN.parent.add(SPLINE.line3D)
 
 window.addEventListener("resize", () => {
     SCREEN.onWindowResize()

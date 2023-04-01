@@ -122,9 +122,12 @@ export class Screen implements IScreen {
 
     onWindowResize() {
 
-        this.camera.aspect = window.innerWidth/window.innerHeight
-        this.camera.updateMatrix()
-        this.renderer.setSize(window.innerWidth, window.innerHeight)
+        this.params.renderer.width = window.innerWidth
+        this.params.renderer.height = window.innerHeight
+
+        this.camera.aspect = (this.params.renderer.width / this.params.renderer.height)
+        this.camera.updateProjectionMatrix()
+        this.renderer.setSize(this.params.renderer.width, this.params.renderer.height)
     }
 
     render() {
