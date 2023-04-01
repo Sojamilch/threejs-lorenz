@@ -1,6 +1,8 @@
 import * as THREE from 'three'
 import { Screen } from "./Screen";
 import { Spline } from "./Spline"
+import "./style.css"
+
 
 const CANVAS_ELEMENT = document.getElementById("webgl") as HTMLCanvasElement
 //CANVAS_ELEMENT.style.display = "none"
